@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.lukasz.plawny.supermarket.data.Item;
 
-interface SupermarketCheckoutService {
+public interface SupermarketCheckoutService {
 
-	int checkout(List<Item> items);
-	int getActualTotalPrice();
+	public int checkout(List<Item> items);
+	public int getActualTotalPrice();
 
 }

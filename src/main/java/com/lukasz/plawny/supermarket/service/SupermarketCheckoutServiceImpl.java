@@ -8,17 +8,19 @@ import com.lukasz.plawny.supermarket.data.ShoppingCart;
 public class SupermarketCheckoutServiceImpl implements SupermarketCheckoutService{
 	
 	private final ShoppingCart shoppingCartForScannedItems;
+	private final PriceCalculator priceCalculator;
 	private int actualTotalPrice;
 
 	public SupermarketCheckoutServiceImpl() {
 		shoppingCartForScannedItems = new ShoppingCart();
+		priceCalculator = new PriceCalculatorImpl();
 		actualTotalPrice = 0;
 	}
 
 	public int checkout(List<Item> items) {
 		shoppingCartForScannedItems.addItems(items);
-		// TODO calculate actual total price
-		return 0;
+		actualTotalPrice = priceCalculator.calculateTotalPrice(shoppingCartForScannedItems);
+		return actualTotalPrice;
 	}
 
 	public int getActualTotalPrice() {
