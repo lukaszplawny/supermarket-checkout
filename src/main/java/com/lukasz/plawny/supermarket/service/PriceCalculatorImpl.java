@@ -1,7 +1,6 @@
 package com.lukasz.plawny.supermarket.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 import com.lukasz.plawny.supermarket.data.DiscountRule;
 import com.lukasz.plawny.supermarket.data.Item;
@@ -10,7 +9,7 @@ import com.lukasz.plawny.supermarket.data.ShoppingCartPosition;
 
 public class PriceCalculatorImpl implements PriceCalculator {
 
-	private static final Logger logger = LoggerFactory.getLogger(PriceCalculatorImpl.class);
+	private static final Logger logger = Logger.getLogger(PriceCalculatorImpl.class.getName());
 	private DiscountRuleProvider discountRuleProvider;
 
 	public PriceCalculatorImpl() {
@@ -18,6 +17,7 @@ public class PriceCalculatorImpl implements PriceCalculator {
 	}
 
 	public int calculateTotalPrice(final ShoppingCart shoppingCart) {
+		System.out.println("Calculating total price");
 		int totalPrice = 0;
 		for (ShoppingCartPosition cartPosition : shoppingCart.getShoppingCartPositions()) {
 			int shoppingCartPositionPrice = calculatePrice(cartPosition);
@@ -29,13 +29,15 @@ public class PriceCalculatorImpl implements PriceCalculator {
 	private int calculatePrice(ShoppingCartPosition shoppingCartPosition) {
 		Item item = shoppingCartPosition.getItem();
 		int itemQuantity = shoppingCartPosition.getQuantity();
-		logger.debug("Calculating price for item: " + item + ", item quantity: " + itemQuantity);
+		logger.info("Calculating price for item: " + item + ", item quantity: " + itemQuantity);
 		int cartPositionPrice = item.getUnitPrice() * itemQuantity;
-		logger.debug("Price before discount: " + cartPositionPrice);
+		logger.info("Price before discount: " + cartPositionPrice);
 		DiscountRule discountRuleForTheItem = discountRuleProvider.findDiscountRule(item);
-		int discountValue = calculateDiscount(item, itemQuantity, discountRuleForTheItem);
-		cartPositionPrice -= discountValue;
-		logger.debug("Final cart position price: " + cartPositionPrice);
+		if (discountRuleForTheItem != null) {
+			int discountValue = calculateDiscount(item, itemQuantity, discountRuleForTheItem);
+			cartPositionPrice -= discountValue;
+		}
+		logger.info("Final cart position price: " + cartPositionPrice);
 		return cartPositionPrice;
 
 	}
@@ -43,9 +45,9 @@ public class PriceCalculatorImpl implements PriceCalculator {
 	private int calculateDiscount(Item item, int itemQuantity, DiscountRule discountRuleForTheItem) {
 		int discountValue = 0;
 		if (isDiscountApplicable(item, itemQuantity, discountRuleForTheItem)) {
-			discountValue = (itemQuantity % discountRuleForTheItem.getItemQuantity())
+			discountValue = (itemQuantity / discountRuleForTheItem.getItemQuantity())
 					* discountRuleForTheItem.getDiscountValue();
-			logger.debug("Discount for the item: " + item + ", item quantity: " + itemQuantity + ", discount value: "
+			logger.info("Discount for the item: " + item + ", item quantity:" + itemQuantity + ", discount value: "
 					+ discountValue);
 		}
 		return discountValue;
