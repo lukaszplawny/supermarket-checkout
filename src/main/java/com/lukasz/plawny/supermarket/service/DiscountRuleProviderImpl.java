@@ -12,6 +12,7 @@ public class DiscountRuleProviderImpl implements DiscountRuleProvider{
 			if (dr.getItem().equals(item))
 				return dr;
 		}
+		//there is no discount rule for the item
 		return null;
 	}
 }

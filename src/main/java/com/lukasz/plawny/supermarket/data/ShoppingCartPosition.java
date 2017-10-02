@@ -4,7 +4,7 @@ import com.lukasz.plawny.supermarket.data.Item;
 
 public class ShoppingCartPosition {
 
-	private static final int INITIAL_ITEM_QUANTITY = 1;
+	private static final int INITIAL_ITEM_QUANTITY = 0;
 
 	private final Item item;
 	private int quantity;
@@ -23,6 +23,8 @@ public class ShoppingCartPosition {
 	}
 
 	public void setQuantity(int quantity) {
+		if (quantity <= 0)
+			throw new IllegalArgumentException("Item quantity cannot be less than 0");
 		this.quantity = quantity;
 	}
 

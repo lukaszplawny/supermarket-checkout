@@ -17,7 +17,6 @@ public class PriceCalculatorImpl implements PriceCalculator {
 	}
 
 	public int calculateTotalPrice(final ShoppingCart shoppingCart) {
-		System.out.println("Calculating total price");
 		int totalPrice = 0;
 		for (ShoppingCartPosition cartPosition : shoppingCart.getShoppingCartPositions()) {
 			int shoppingCartPositionPrice = calculatePrice(cartPosition);
