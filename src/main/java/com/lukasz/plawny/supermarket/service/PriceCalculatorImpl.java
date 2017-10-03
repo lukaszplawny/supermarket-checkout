@@ -2,10 +2,10 @@ package com.lukasz.plawny.supermarket.service;
 
 import java.util.logging.Logger;
 
-import com.lukasz.plawny.supermarket.data.DiscountRule;
-import com.lukasz.plawny.supermarket.data.Item;
-import com.lukasz.plawny.supermarket.data.ShoppingCart;
-import com.lukasz.plawny.supermarket.data.ShoppingCartPosition;
+import com.lukasz.plawny.supermarket.dto.DiscountRule;
+import com.lukasz.plawny.supermarket.dto.Item;
+import com.lukasz.plawny.supermarket.dto.ShoppingCart;
+import com.lukasz.plawny.supermarket.dto.ShoppingCartEntry;
 
 public class PriceCalculatorImpl implements PriceCalculator {
 
@@ -18,14 +18,14 @@ public class PriceCalculatorImpl implements PriceCalculator {
 
 	public int calculateTotalPrice(final ShoppingCart shoppingCart) {
 		int totalPrice = 0;
-		for (ShoppingCartPosition cartPosition : shoppingCart.getShoppingCartPositions()) {
+		for (ShoppingCartEntry cartPosition : shoppingCart.getShoppingCartEntries()) {
 			int shoppingCartPositionPrice = calculatePrice(cartPosition);
 			totalPrice += shoppingCartPositionPrice;
 		}
 		return totalPrice;
 	}
 
-	private int calculatePrice(ShoppingCartPosition shoppingCartPosition) {
+	private int calculatePrice(ShoppingCartEntry shoppingCartPosition) {
 		Item item = shoppingCartPosition.getItem();
 		int itemQuantity = shoppingCartPosition.getQuantity();
 		logger.info("Calculating price for item: " + item + ", item quantity: " + itemQuantity);

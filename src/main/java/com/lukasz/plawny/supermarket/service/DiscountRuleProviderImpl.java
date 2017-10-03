@@ -2,8 +2,8 @@ package com.lukasz.plawny.supermarket.service;
 
 import java.util.EnumSet;
 
-import com.lukasz.plawny.supermarket.data.DiscountRule;
-import com.lukasz.plawny.supermarket.data.Item;
+import com.lukasz.plawny.supermarket.dto.DiscountRule;
+import com.lukasz.plawny.supermarket.dto.Item;
 
 public class DiscountRuleProviderImpl implements DiscountRuleProvider{
 		

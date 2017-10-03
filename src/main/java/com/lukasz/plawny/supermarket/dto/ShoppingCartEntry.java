@@ -1,19 +1,19 @@
-package com.lukasz.plawny.supermarket.data;
+package com.lukasz.plawny.supermarket.dto;
 
-import com.lukasz.plawny.supermarket.data.Item;
+import com.lukasz.plawny.supermarket.dto.Item;
 
-public class ShoppingCartPosition {
+public class ShoppingCartEntry {
 
 	private static final int INITIAL_ITEM_QUANTITY = 0;
 
 	private final Item item;
 	private int quantity;
 
-	public ShoppingCartPosition(Item item) {
+	public ShoppingCartEntry(Item item) {
 		this(item, INITIAL_ITEM_QUANTITY);
 	}
 
-	public ShoppingCartPosition(Item item, int quantity) {
+	public ShoppingCartEntry(Item item, int quantity) {
 		this.item = item;
 		this.quantity = quantity;
 	}

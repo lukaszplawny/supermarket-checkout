@@ -1,6 +1,6 @@
 package com.lukasz.plawny.supermarket.service;
 
-import com.lukasz.plawny.supermarket.data.ShoppingCart;
+import com.lukasz.plawny.supermarket.dto.ShoppingCart;
 
 public interface PriceCalculator {
 

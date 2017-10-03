@@ -1,4 +1,4 @@
-package com.lukasz.plawny.supermarket.data;
+package com.lukasz.plawny.supermarket.dto;
 
 //TODO I would like to have items in for example json or xml file to provide possibility for easy extension of product list
 public enum Item {
