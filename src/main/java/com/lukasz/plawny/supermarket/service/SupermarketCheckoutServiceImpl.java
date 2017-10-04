@@ -8,7 +8,7 @@ import com.lukasz.plawny.supermarket.dto.ShoppingCart;
 
 /**
  * 
- * Class that implements supermarket checkout functionality. Class is stateful
+ * Class that implements supermarket checkout functionality. Class is stateful.
  * 
  * @author Lukasz Plawny
  *

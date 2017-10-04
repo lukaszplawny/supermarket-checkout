@@ -20,13 +20,13 @@ public class DiscountRuleProviderImplTest {
 	}
 
 	@Test
-	public void shouldReturnDiscountRuleForItem() {
+	public void findDiscountRule_ShouldReturnDiscountRuleForItem() {
 		assertEquals(DiscountRule.BUY_3_ITEMS_A_GET_50_DISCOUNT, discountRuleProvider.findDiscountRule(Item.A));
 		assertEquals(DiscountRule.BUY_2_ITEMS_B_GET_5_DISCOUNT, discountRuleProvider.findDiscountRule(Item.B));
 	}
 
 	@Test
-	public void shouldReturnNullWhenThereIsNoDiscountRuleForItem() {
+	public void findDiscountRule_shouldReturnNull_WhenThereIsNoDiscountRuleForItem() {
 		assertNull(discountRuleProvider.findDiscountRule(Item.C));
 		assertNull(discountRuleProvider.findDiscountRule(Item.D));
 	}

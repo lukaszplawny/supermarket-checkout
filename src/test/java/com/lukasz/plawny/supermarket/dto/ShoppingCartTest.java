@@ -11,33 +11,34 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.lukasz.plawny.supermarket.dto.Item;
 import com.lukasz.plawny.supermarket.dto.ShoppingCart;
 
-@RunWith(PowerMockRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ShoppingCartTest {
 
 	private ShoppingCart shoppingCart;
-	private List<ShoppingCartEntry> shoppingCartEntries;
+	
+	@Mock
+	private ShoppingCartEntry shoppingCartEntry;
 
 	@Before
 	public void createShoppingCart() {
-		shoppingCartEntries = new ArrayList<>();
-		shoppingCart = new ShoppingCart(shoppingCartEntries);
+		shoppingCart = new ShoppingCart();
 	}
 
 	@Test
-	public void shouldAddNewShoppingCartEntryWhenNewItemIsAdded() throws Exception {
-		//PowerMockito.whenNew(ShoppingCartEntry.class).withArguments(Item.A).thenReturn(shoppingCartItemAEntry);
+	public void addItems_ShouldCreateNewShoppingCartEntry_WhenNewItemIsAdded() throws Exception {
 		shoppingCart.addItems(Arrays.asList(Item.A));
 		assertEquals(shoppingCart.getShoppingCartEntries().size(), 1);
 		assertEquals(shoppingCart.getShoppingCartEntries().get(0).getItem(), Item.A);
 	}
 
 	@Test
-	public void shouldIncrementItemsQuantityWhenItemsAreAdded() {
+	public void add_Items_ShouldIncrementItemsQuantity_WhenMultipleItemsAreAdded() {
 		List<Item> items = new ArrayList<>();
 		items.add(Item.A);
 		items.add(Item.B);
@@ -54,9 +55,8 @@ public class ShoppingCartTest {
 	}
 
 	@Test
-	public void shouldCreateEmptyShoppingCart() {
+	public void ShoppingCart_ShouldCreateEmptyShoppingCart() {
 		ShoppingCart shoppingCart = new ShoppingCart();
 		assertTrue(shoppingCart.getShoppingCartEntries().isEmpty());
 	}
-
 }

@@ -32,14 +32,14 @@ public class SupermarketCheckoutServiceImplTest {
 	}
 
 	@Test
-	public void shouldUpdateTotalPriceWhenNewItemsAdded() {
+	public void checkout_ShouldUpdateTotalPrice_WhenNewItemsAdded() {
 		Mockito.when(priceCalculator.calculateTotalPrice(shoppingCart)).thenReturn(430);
 		int actualTotalPrice = checkoutService.checkout(Arrays.asList("A", "B", "A"));
 		assertEquals(430, actualTotalPrice);
 	}
 
 	@Test
-	public void shouldUpdateTotalPriceWhenNewItemsAddedToAlreadyNotEmptyShoppingCart() {
+	public void checkout_ShouldUpdateTotalPrice_WhenNewItemsAddedToAlreadyNotEmptyShoppingCart() {
 		Mockito.when(priceCalculator.calculateTotalPrice(shoppingCart)).thenReturn(430);
 		checkoutService.checkout(Arrays.asList("A", "B", "A"));
 		Mockito.when(priceCalculator.calculateTotalPrice(shoppingCart)).thenReturn(480);
@@ -48,27 +48,28 @@ public class SupermarketCheckoutServiceImplTest {
 	}
 
 	@Test
-	public void shouldUpdateShoppingCartWhenNewItemsAdded() {
+	public void checkout_ShouldUpdateShoppingCart_WhenNewItemsAdded() {
 		Mockito.when(priceCalculator.calculateTotalPrice(shoppingCart)).thenReturn(430);
 		checkoutService.checkout(Arrays.asList("A", "B", "A"));
 		Mockito.verify(shoppingCart, Mockito.times(1)).addItems(Mockito.eq(Arrays.asList(Item.A, Item.B, Item.A)));
 	}
 
-	@Test
-	public void shouldSetTotalPriceToZeroDuringInitialization() {
-		assertEquals(checkoutService.getActualTotalPrice(), 0);
-		checkoutService = new SupermarketCheckoutServiceImpl();
-		assertEquals(checkoutService.getActualTotalPrice(), 0);
-	}
-
 	@Test(expected = IllegalArgumentException.class)
-	public void shouldThrowExceptionWhenInvalidItemId() {
+	public void checkout_ShouldThrowException_WhenInvalidItemIdPassedAsArgument() {
 		checkoutService.checkout(Arrays.asList("INVALIDID"));
 	}
 
 	@Test
-	public void shouldReturnActualTotalPrice() {
+	public void SupermarketCheckoutService_ShouldSetTotalPriceToZero_DuringInitializationWithoutArguments() {
+		checkoutService = new SupermarketCheckoutServiceImpl();
+		assertEquals(0, checkoutService.getActualTotalPrice());
+	}
 
+	@Test
+	public void getActualTotalPrice_ShouldReturnActualTotalPrice() {
+		Mockito.when(priceCalculator.calculateTotalPrice(shoppingCart)).thenReturn(43);
+		checkoutService.checkout(Arrays.asList("A", "B", "A"));
+		assertEquals(43, checkoutService.getActualTotalPrice());
 	}
 
 }

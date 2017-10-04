@@ -8,17 +8,13 @@ public class ShoppingCart {
 	private final List<ShoppingCartEntry> shoppingCartEntries;
 
 	public ShoppingCart() {
-		this(new ArrayList<>());
-	}
-
-	public ShoppingCart(List<ShoppingCartEntry> shoppingCartEntries) {
-		this.shoppingCartEntries = shoppingCartEntries;
+		shoppingCartEntries = new ArrayList<>();
 	}
 
 	public void addItems(List<Item> items) {
 		for (Item item : items) {
-			ShoppingCartEntry shoppingCartPositionWithItem = getShoppingCartEntry(item);
-			incrementItemQuantity(shoppingCartPositionWithItem);
+			ShoppingCartEntry shoppingCartEntryWithItem = getShoppingCartEntry(item);
+			incrementItemQuantity(shoppingCartEntryWithItem);
 		}
 	}
 
@@ -27,9 +23,9 @@ public class ShoppingCart {
 	}
 
 	private ShoppingCartEntry getShoppingCartEntry(Item item) {
-		for (ShoppingCartEntry cartPositionToCheck : shoppingCartEntries) {
-			if (cartPositionToCheck.getItem().equals(item)) {
-				return cartPositionToCheck;
+		for (ShoppingCartEntry cartEntryToCheck : shoppingCartEntries) {
+			if (cartEntryToCheck.getItem().equals(item)) {
+				return cartEntryToCheck;
 			}
 		}
 		ShoppingCartEntry newlyCreatedShoppingCartEntry = new ShoppingCartEntry(item);
@@ -37,8 +33,8 @@ public class ShoppingCart {
 		return newlyCreatedShoppingCartEntry;
 	}
 
-	private void incrementItemQuantity(ShoppingCartEntry shoppingCartPosition) {
-		int actualItemQuantity = shoppingCartPosition.getQuantity();
-		shoppingCartPosition.setQuantity(++actualItemQuantity);
+	private void incrementItemQuantity(ShoppingCartEntry shoppingCartEntry) {
+		int actualItemQuantity = shoppingCartEntry.getQuantity();
+		shoppingCartEntry.setQuantity(++actualItemQuantity);
 	}
 }
