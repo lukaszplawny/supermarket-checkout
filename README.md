@@ -35,3 +35,8 @@ Then start cli by running command:
 ```
 java -jar <path_to_executable_jar>
 ```
+
+## TO DOs:
+
+* improve logging
+* items data in json or xml file to provide possibility to modify it

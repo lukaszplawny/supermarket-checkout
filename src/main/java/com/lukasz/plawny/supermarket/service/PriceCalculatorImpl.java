@@ -1,5 +1,6 @@
 package com.lukasz.plawny.supermarket.service;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.lukasz.plawny.supermarket.dto.DiscountRule;
@@ -28,15 +29,15 @@ public class PriceCalculatorImpl implements PriceCalculator {
 	private int calculatePrice(ShoppingCartEntry shoppingCartPosition) {
 		Item item = shoppingCartPosition.getItem();
 		int itemQuantity = shoppingCartPosition.getQuantity();
-		logger.info("Calculating price for item: " + item + ", item quantity: " + itemQuantity);
+		logger.log(Level.FINE, "Calculating price for item: " + item + ", item quantity: " + itemQuantity);
 		int cartPositionPrice = item.getUnitPrice() * itemQuantity;
-		logger.info("Price before discount: " + cartPositionPrice);
+		logger.log(Level.FINE, "Price before discount: " + cartPositionPrice);
 		DiscountRule discountRuleForTheItem = discountRuleProvider.findDiscountRule(item);
 		if (discountRuleForTheItem != null) {
 			int discountValue = calculateDiscount(item, itemQuantity, discountRuleForTheItem);
 			cartPositionPrice -= discountValue;
 		}
-		logger.info("Final cart position price: " + cartPositionPrice);
+		logger.log(Level.FINE, "Final cart position price: " + cartPositionPrice);
 		return cartPositionPrice;
 
 	}
@@ -46,7 +47,7 @@ public class PriceCalculatorImpl implements PriceCalculator {
 		if (isDiscountApplicable(item, itemQuantity, discountRuleForTheItem)) {
 			discountValue = (itemQuantity / discountRuleForTheItem.getItemQuantity())
 					* discountRuleForTheItem.getDiscountValue();
-			logger.info("Discount for the item: " + item + ", item quantity:" + itemQuantity + ", discount value: "
+			logger.log(Level.FINE, "Discount for the item: " + item + ", item quantity:" + itemQuantity + ", discount value: "
 					+ discountValue);
 		}
 		return discountValue;

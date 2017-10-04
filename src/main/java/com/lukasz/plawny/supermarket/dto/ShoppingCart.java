@@ -2,8 +2,12 @@ package com.lukasz.plawny.supermarket.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ShoppingCart {
+
+	private static final Logger logger = Logger.getLogger(ShoppingCart.class.getName());
 
 	private final List<ShoppingCartEntry> shoppingCartEntries;
 
@@ -36,5 +40,8 @@ public class ShoppingCart {
 	private void incrementItemQuantity(ShoppingCartEntry shoppingCartEntry) {
 		int actualItemQuantity = shoppingCartEntry.getQuantity();
 		shoppingCartEntry.setQuantity(++actualItemQuantity);
+		if (logger.isLoggable(Level.FINER))
+			logger.log(Level.FINER, "Incrementing quantity of " + shoppingCartEntry.getItem().name()
+					+ ". Item quantity after incrementation " + shoppingCartEntry.getQuantity());
 	}
 }

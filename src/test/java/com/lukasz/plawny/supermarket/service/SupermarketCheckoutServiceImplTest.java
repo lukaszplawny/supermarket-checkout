@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.lukasz.plawny.supermarket.dto.Item;
@@ -28,7 +29,9 @@ public class SupermarketCheckoutServiceImplTest {
 	@Before
 	public void createCheckoutService() {
 		Mockito.when(priceCalculator.calculateTotalPrice(shoppingCart)).thenReturn(0);
-		checkoutService = new SupermarketCheckoutServiceImpl(shoppingCart, priceCalculator);
+		checkoutService = new SupermarketCheckoutServiceImpl();
+		Whitebox.setInternalState(checkoutService, "shoppingCartForScannedItems", shoppingCart);
+		Whitebox.setInternalState(checkoutService, "priceCalculator", priceCalculator);
 	}
 
 	@Test

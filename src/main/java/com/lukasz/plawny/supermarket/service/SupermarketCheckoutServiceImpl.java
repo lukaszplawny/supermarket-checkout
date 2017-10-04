@@ -25,12 +25,6 @@ public class SupermarketCheckoutServiceImpl implements SupermarketCheckoutServic
 		actualTotalPrice = 0;
 	}
 
-	SupermarketCheckoutServiceImpl(ShoppingCart shoppingCart, PriceCalculator priceCalculator) {
-		this.shoppingCartForScannedItems = shoppingCart;
-		this.priceCalculator = priceCalculator;
-		actualTotalPrice = priceCalculator.calculateTotalPrice(shoppingCart);
-	}
-
 	/**
 	 * Method returns total price of all items passed to the method during service lifecycle.
 	 * 
